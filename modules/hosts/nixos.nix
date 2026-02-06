@@ -20,6 +20,8 @@ let
       modules = [
         config.flake.nixosModules."host-${host}"
         config.flake.nixosModules.core
+        inputs.hjem.nixosModules.default
+        (inputs.nixpkgs.lib.mkAliasOptionModule ["hj"] ["hjem" "users" user])
       ];
     };
 in

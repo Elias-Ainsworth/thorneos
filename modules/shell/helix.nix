@@ -1,6 +1,6 @@
-{ inputs, pkgs, ... }:
-
-    let
+{
+  flake.nixosModules.helix = {pkgs,inputs, ...}:
+let
       oxocarbonToml = #toml
       ''
         # inherits = "fleet_dark"
@@ -55,18 +55,18 @@
         "error" = { fg = "#ffffff", bg = "#262626" }
         "warning" = { fg = "#ffffff", bg = "#262626" }
        '';
-     helix' = (inputs.wrappers.wrapperModules.helix.apply {
-       inherit pkgs;
-       themes."oxocarbon" = oxocarbonToml;
-       settings = #toml
-       ''theme = "oxocarbon"'';
-     }).wrapper;
-  in
-  {
+helix' = (inputs.wrappers.wrapperModules.helix.apply {
+     inherit pkgs;
+     themes."oxocarbon" = oxocarbonToml;
+     settings = {
+       theme = "oxocarbon";
+     };
+    }).wrapper;
 
-  flake.nixosModules.helix = {
+    in
+  {
       environment.systemPackages = [
-        helix' # overlay-ed above
+       helix'
       ];
     };
 }

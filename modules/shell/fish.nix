@@ -17,7 +17,29 @@
       programs = {
         fish = {
           enable = true;
+
+          shellAbbrs = config.environment.shellAliases // {
+            ehistory = ''nvim "${config.hj.xdg.data.directory}/fish/fish_history"'';
+          };
+          shellInit =
+            /* fish */ ''
+              set fish_greeting
+
+              function fish_user_key_bindings
+                fish_default_key_bindings -M insert
+                fish_vi_key_bindings --no-erase insert
+              end
+
+              fish_vi_key_bindings
+
+              source ${fish-completion-sync}/init.fish
+            '';
         };
+      };
+
+      environment = {
+        pathsToLink = ["/share/fish"];
+        systemPackages = [fish-completion-sync];
       };
     };
 }

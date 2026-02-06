@@ -1,12 +1,12 @@
-{ inputs, lib, ... }:
+{ inputs, lib, pkgs, ... }:
 {
   flake.nixosModules.core = {
     programs.dconf.enable = true;
     services.gvfs.enable = true;
 
     hjem = {
+      users."elias-ainsworth".enable = true;
       clobberByDefault = true;
-      linker = inputs.hjem.packages.${pkgs.stdenv.hostPlatform.system}.smfh;
     };
   };
 }

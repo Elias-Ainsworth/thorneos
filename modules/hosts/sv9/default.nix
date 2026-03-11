@@ -1,5 +1,5 @@
 toplevel: {
-  flake.nixosModules.host-x1c =
+  flake.nixosModules.host-sv9 =
   { pkgs, ... }:
   {
   imports = with toplevel.config.flake.nixosModules; [

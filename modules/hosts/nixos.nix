@@ -1,32 +1,46 @@
-{ config, inputs, self, ...}:
-let 
+{
+  config,
+  inputs,
+  self,
+  globals,
+  ...
+}:
+let
   inherit (inputs.nixpkgs) lib;
-  user = "elias-ainsworth";
   mkNixos =
     host:
-    {}:
+    {
+      isVm ? false,
+      extraConfig ? { },
+    }:
     lib.nixosSystem {
-      specialArgs = {
+      specialArgs = rec {
         inherit
           inputs
           self
           host
-          user
+          isVm
+          globals
           ;
-        isLaptop = host == "x1c";
-        dots = "/home/${user}/projects/thorneos";
+        user = globals.user;
+        isNixOS = true;
+        isLaptop = host == "sv9";
+        dots = "/home/${user}/projects/dotfiles";
       };
 
       modules = [
         config.flake.nixosModules."host-${host}"
         config.flake.nixosModules.core
         inputs.hjem.nixosModules.default
-        (inputs.nixpkgs.lib.mkAliasOptionModule ["hj"] ["hjem" "users" user])
+        # alias for hjem
+        (lib.mkAliasOptionModule [ "hj" ] [ "hjem" "users" globals.user ])
+        extraConfig
       ];
     };
+  mkVm = host: mkNixosArgs: mkNixos host (mkNixosArgs // { isVm = true; });
 in
 {
   flake.nixosConfigurations = {
-    x1c = mkNixos "x1c" { };
+    sv9 = mkNixos "sv9" { };
   };
 }

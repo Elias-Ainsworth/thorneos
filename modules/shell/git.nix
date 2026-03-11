@@ -1,3 +1,4 @@
+{ globals, ... }:
 {
   flake.nixosModules.core = {
     programs = {
@@ -9,8 +10,8 @@
             defaultBranch = "main";
           };
           user = {
-            name = "Elias Ainsworth";
-            email = "pilum-murialis.toge@proton.me";
+            name = globals.name;
+            email = globals.email;
           };
         };
       };

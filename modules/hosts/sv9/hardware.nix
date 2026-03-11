@@ -2,7 +2,8 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-flake.nixosModules.host-x1c =
+flake.nixosModules.host-sv9 =
+
 { config, lib, pkgs, modulesPath, ... }:
 
 {
@@ -10,18 +11,18 @@ flake.nixosModules.host-x1c =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/13971fad-28a4-4069-808b-936477838484";
+    { device = "/dev/disk/by-uuid/ab485770-c95b-4df0-b283-ecf3abc9b82e";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4023-DFAF";
+    { device = "/dev/disk/by-uuid/0A24-99FA";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };

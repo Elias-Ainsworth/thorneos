@@ -1,10 +1,13 @@
-{ lib, ... }:
+{ globals, ... }:
 {
   flake.nixosModules.core = {
-    users.users.elias-ainsworth = {
+    users.users.${globals.user} = {
       isNormalUser = true;
-      description = "Elias Ainsworth";
-      extraGroups = [ "networkmanager" "wheel" ];
+      description = globals.name;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
     };
   };
 }

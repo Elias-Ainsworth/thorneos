@@ -22,7 +22,8 @@
             ehistory = ''nvim "${config.hj.xdg.data.directory}/fish/fish_history"'';
           };
           shellInit =
-            /* fish */ ''
+            # fish
+            ''
               set fish_greeting
 
               function fish_user_key_bindings
@@ -38,8 +39,8 @@
       };
 
       environment = {
-        pathsToLink = ["/share/fish"];
-        systemPackages = [fish-completion-sync];
+        pathsToLink = [ "/share/fish" ];
+        systemPackages = [ fish-completion-sync ];
       };
     };
 }

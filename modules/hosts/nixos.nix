@@ -32,6 +32,7 @@ let
         config.flake.nixosModules."host-${host}"
         config.flake.nixosModules.core
         inputs.hjem.nixosModules.default
+        inputs.noctalia.nixosModules.default
         # alias for hjem
         (lib.mkAliasOptionModule [ "hj" ] [ "hjem" "users" globals.user ])
         extraConfig

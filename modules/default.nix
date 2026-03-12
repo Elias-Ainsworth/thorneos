@@ -9,6 +9,7 @@
     {
       programs.dconf.enable = true;
       services.gvfs.enable = true;
+      services.upower.enable = true;
 
       hjem = {
         clobberByDefault = true;
